@@ -102,8 +102,8 @@ public static function calcularRaiz($n): float               // sqrt()
 
 | Estudiante    | Cédula / ID | Rol |
 | ------------- | ----------- | --- |
-| Jose Barahona | —           | —   |
-| Shirley Web   | —           | —   |
+| Jose Barahona | 8-939-51    | —   |
+| Shirley Wen   | 8-957-1526  | —   |
 
 **Curso:** Desarrollo Web VII  
 **Universidad:** Universidad Tecnológica de Panamá  
