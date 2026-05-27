@@ -1,4 +1,4 @@
-# 🏥 Mini Proyecto #2 — Sentencias de Control y Clases en PHP
+# Mini Proyecto #2 — Sentencias de Control y Clases en PHP
 
 > **Desarrollo Web VII** · Universidad Tecnológica de Panamá  
 > Facultad de Ingeniería en Sistemas Computacionales — Campus Víctor Levis Sasso  
