@@ -42,6 +42,16 @@ switch ($problema) {
     case '6':
         require_once 'problema6.php';
         break;
+    
+    case '7':
+        require_once 'problema7.php';
+        break;
+    case '8':
+        require_once 'problema8.php';
+        break;
+    case '9':
+        require_once 'problema9.php';
+        break;
 
     default:
         echo "<div class='tarjeta'>
@@ -54,6 +64,10 @@ switch ($problema) {
                     <a href='index.php?problema=4'>Problema #4 — Pares e impares</a>
                     <a href='index.php?problema=5'>Problema #5 — Clasificar edades</a>
                     <a href='index.php?problema=6'>Problema #6 — Presupuesto hospitalario</a>
+                    <a href='index.php?problema=7'>Problema #7 — Calculadora de Datos Estadísticos</a>
+                    <a href='index.php?problema=8'>Problema #8 — Estación del año</a>
+                    <a href='index.php?problema=9'>Problema #9 — Solicitar un número (1 al 9)</a>
+
                 </div>
             </div>";
         break;
