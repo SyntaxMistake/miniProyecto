@@ -18,7 +18,7 @@ Este proyecto implementa una aplicación web en **PHP con arquitectura MVC** que
 | Capa                     | Tecnología          | Versión | Uso                                               |
 | ------------------------ | ------------------- | ------- | ------------------------------------------------- |
 | **Backend / Lógica**     | PHP                 | 8.x     | Lógica de negocio, estructuras de control, clases |
-| **Frontend / HUB**       | React               | 18.x    | Menú principal, navegación entre problemas        |
+| **Frontend / HUB**       | Bootstrap           | 18.x    | Menú principal, navegación entre problemas        |
 | **Estilos**              | CSS3 / Tailwind CSS | 3.x     | Diseño visual, responsividad                      |
 | **Gráficas**             | Chart.js            | 4.x     | Problema #5 (edades) y Problema #6 (presupuesto)  |
 | **Servidor local**       | XAMPP / Laragon     | —       | Entorno PHP local (Apache + PHP)                  |
@@ -41,41 +41,6 @@ Este proyecto implementa una aplicación web en **PHP con arquitectura MVC** que
 | 7   | Calculadora de datos estadísticos (notas dinámicas) | `foreach`, funciones matemáticas   |
 | 8   | Estación del año según fecha ingresada              | `switch`, operador ternario        |
 | 9   | 15 primeras potencias de un número (1–9)            | `for`, `pow()`                     |
-
----
-
-## ⚙️ Clases Utilitarias
-
-### `Utilidades` (métodos estáticos)
-
-```php
-// Sanitización XSS — OWASP A03:2021
-public static function limpiarSalida(string $valor): string
-// Valor seguro o default (NVL)
-public static function nvl(&$var, $default = ""): mixed
-// Enlace de navegación al menú
-public static function enlaceMenu(string $url): string
-// Footer con fecha dinámica
-public static function fechaHoy(): string
-```
-
-### `Validacion` (métodos estáticos)
-
-```php
-public static function esNumero($valor): bool        // filter_var
-public static function esEnteroPositivo($valor): bool
-public static function validarRango($n, $min, $max): bool
-public static function validarCSRF(): void
-```
-
-### `Matematicas` (métodos estáticos)
-
-```php
-public static function calcularMedia(array $datos): float
-public static function calcularDesviacionEstandar(array $datos): float
-public static function calcularPotencia($base, $exp): float  // pow()
-public static function calcularRaiz($n): float               // sqrt()
-```
 
 ---
 
@@ -112,4 +77,4 @@ public static function calcularRaiz($n): float               // sqrt()
 
 ---
 
-> _"Código repetido es código mal diseñado."_ — Principio DRY
+> _"Viaje antes que destino."_ — King Nohadon.

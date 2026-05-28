@@ -1,6 +1,5 @@
-<footer>
-    <p>Mini Proyecto | Desarrollo de Software VII | Shirley Wen - Jose Barahona | </p>
-    <p>Fecha: <?= date('d/m/Y H:i:s') ?></p>
+<footer class="bg-light text-center text-muted py-3 mt-4 border-top">
+    <div class="container">
+        <small>&copy; <?php echo date('Y'); ?> Desarrollo de Software VII - Todos los derechos reservados</small>
+    </div>
 </footer>
-</body>
-</html>
