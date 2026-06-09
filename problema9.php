@@ -25,7 +25,7 @@ for ($i = 1; $i <= $cantidad; $i++) {
 </head>
 <body>
 
-
+  
 <header>
   <h1>Potencias de 4</h1>
   <p>Problema #9</p>
