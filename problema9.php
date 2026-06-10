@@ -10,7 +10,7 @@ $potencias = [];
 for ($i = 1; $i <= 15; $i++) {
     $potencias[] = [
         'exp'       => $i,
-        'resultado' => pow($base, $i),
+        'resultado' => Utilidades::calcularPotencia($base, $i),
     ];
 }
 ?>

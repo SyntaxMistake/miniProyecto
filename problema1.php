@@ -1,12 +1,10 @@
 <?php
 require_once 'Utilidades.php';
 
-// Variables iniciales
 $errores    = [];
 $numeros    = [];
 $resultados = null;
 
-// Si el usuario envió el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     for ($i = 1; $i <= 5; $i++) {
@@ -32,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!-- Enlace volver al menú (DRY) -->
 <?= Utilidades::enlaceVolver('index.php') ?>
 
 <div class="tarjeta">

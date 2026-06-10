@@ -1,43 +1,33 @@
 <?php
 require_once 'Utilidades.php';
-$x = isset($_POST['x']) ? (int)$_POST['x'] : 0;
 
-// Recopilar notas en un array
-$notas = [];
-for ($i = 1; $i <= $x; $i++) {
-    if (isset($_POST["num{$i}"])) {
-        $notas[] = (float)$_POST["num{$i}"];
-    }
-}
+$x = filter_var($_POST['x'] ?? 0, FILTER_VALIDATE_INT, [
+    'options' => ['min_range' => 1, 'max_range' => 100]
+]);
+$x = $x === false ? 0 : $x;
 
-// Calcular estadísticas si hay notas ingresadas
+$notas      = [];
+$errores    = [];
 $resultados = null;
-if (count($notas) === $x && $x > 0) {
-    $cantidad = count($notas);
 
-    // Promedio
-    $suma = 0;
-    foreach ($notas as $nota) {
-        $suma += $nota;
-    }
-    $promedio = $suma / $cantidad;
-
-    // Nota mínima y máxima
-    $minima = $notas[0];
-    $maxima = $notas[0];
-    foreach ($notas as $nota) {
-        if ($nota < $minima) $minima = $nota;
-        if ($nota > $maxima) $maxima = $nota;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $x > 0 && isset($_POST['num1'])) {
+    for ($i = 1; $i <= $x; $i++) {
+        $nota = Utilidades::validarNumero($_POST["num{$i}"] ?? '');
+        if ($nota === null) {
+            $errores[] = "La nota #$i no es válida.";
+        } else {
+            $notas[] = $nota;
+        }
     }
 
-    // Desviación estándar
-    $sumaCuadrados = 0;
-    foreach ($notas as $nota) {
-        $sumaCuadrados += ($nota - $promedio) ** 2;
+    if (empty($errores) && count($notas) === $x) {
+        $resultados = [
+            'promedio'   => Utilidades::calcularMedia($notas),
+            'desviacion' => Utilidades::calcularDesviacion($notas),
+            'minima'     => min($notas),
+            'maxima'     => max($notas),
+        ];
     }
-    $desviacion = sqrt($sumaCuadrados / $cantidad);
-
-    $resultados = compact('promedio', 'minima', 'maxima', 'desviacion');
 }
 ?>
 
@@ -45,52 +35,49 @@ if (count($notas) === $x && $x > 0) {
 
 <div class="tarjeta">
     <h2>Problema #7 — Calculadora de Datos Estadísticos</h2>
-    <p>Ingresa cuántas notas quieres calcular</p>
+    <p>Ingresa cuántas notas quieres calcular.</p>
 
     <form method="POST" action="index.php?problema=7">
         <label>¿Cuántas notas desea calcular?</label>
-        <input type="number" name="x" min="1"
+        <input type="number" name="x" min="1" max="100"
                placeholder="Cantidad de notas"
-               value="<?= htmlspecialchars($x) ?>"
+               value="<?= $x > 0 ? htmlspecialchars($x) : '' ?>"
                required>
 
         <?php if ($x > 0): ?>
-        <div class="fila-5">
-            <?php for ($i = 1; $i <= $x; $i++): ?>
-                <input type="number"
-                       name="num<?= $i ?>"
-                       placeholder="N<?= $i ?>"
-                       step="any" min="0"
-                       value="<?= htmlspecialchars($_POST["num{$i}"] ?? '') ?>"
-                       required>
-            <?php endfor; ?>
-        </div>
+            <div class="fila-5" style="margin-top:12px;">
+                <?php for ($i = 1; $i <= $x; $i++): ?>
+                    <input type="number"
+                           name="num<?= $i ?>"
+                           placeholder="Nota <?= $i ?>"
+                           step="any" min="0"
+                           value="<?= htmlspecialchars($_POST["num{$i}"] ?? '') ?>"
+                           required>
+                <?php endfor; ?>
+            </div>
         <?php endif; ?>
 
+        <br>
         <button type="submit">Calcular</button>
     </form>
+</div>
 
-    <?php if ($resultados): ?>
-    <div class="resultados">
+<?php if (!empty($errores)): ?>
+    <div class="error">
+        <?php foreach ($errores as $e): ?>
+            <p>⚠ <?= htmlspecialchars($e) ?></p>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+
+<?php if ($resultados): ?>
+    <div class="tarjeta">
         <h3>Resultados</h3>
         <table>
-            <tr>
-                <th>Promedio</th>
-                <td><?= number_format($resultados['promedio'], 2) ?></td>
-            </tr>
-            <tr>
-                <th>Desviación Estándar</th>
-                <td><?= number_format($resultados['desviacion'], 2) ?></td>
-            </tr>
-            <tr>
-                <th>Nota Mínima</th>
-                <td><?= number_format($resultados['minima'], 2) ?></td>
-            </tr>
-            <tr>
-                <th>Nota Máxima</th>
-                <td><?= number_format($resultados['maxima'], 2) ?></td>
-            </tr>
+            <tr><th>Promedio</th>            <td><?= number_format($resultados['promedio'],   2) ?></td></tr>
+            <tr><th>Desviación Estándar</th> <td><?= number_format($resultados['desviacion'], 2) ?></td></tr>
+            <tr><th>Nota Mínima</th>         <td><?= number_format($resultados['minima'],     2) ?></td></tr>
+            <tr><th>Nota Máxima</th>         <td><?= number_format($resultados['maxima'],     2) ?></td></tr>
         </table>
     </div>
-    <?php endif; ?>
-</div>
+<?php endif; ?>

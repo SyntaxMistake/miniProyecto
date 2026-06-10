@@ -8,26 +8,15 @@ $resultados = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // Leemos las 5 edades
     for ($i = 1; $i <= 5; $i++) {
-        $valorRaw = $_POST["edad{$i}"] ?? '';
-        $edad     = filter_var($valorRaw, FILTER_VALIDATE_INT, [
+        $edad = filter_var($_POST["edad{$i}"] ?? '', FILTER_VALIDATE_INT, [
             'options' => ['min_range' => 0, 'max_range' => 120]
         ]);
 
         if ($edad === false) {
             $errores[] = "La edad #$i debe ser un número entre 0 y 120.";
         } else {
-            // Clasificamos con if
-            if ($edad <= 12) {
-                $categoria = 'Niño';
-            } elseif ($edad <= 17) {
-                $categoria = 'Adolescente';
-            } elseif ($edad <= 64) {
-                $categoria = 'Adulto';
-            } else {
-                $categoria = 'Adulto mayor';
-            }
+            $categoria = Utilidades::clasificarEdad($edad);
 
             $personas[] = ['edad' => $edad, 'categoria' => $categoria];
             $conteo[$categoria]++;
@@ -70,16 +59,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php endif; ?>
 
 <?php if ($resultados): ?>
-
     <div class="tarjeta">
         <h3>Clasificación</h3>
         <?php foreach ($personas as $i => $p): ?>
             <p>
                 Persona <?= $i + 1 ?>:
                 <strong><?= $p['edad'] ?> años</strong> —
-                <span class="tag tag-<?= strtolower(str_replace(' ', '-', $p['categoria'])) ?>">
-                    <?= $p['categoria'] ?>
-                </span>
+                <?= htmlspecialchars($p['categoria']) ?>
             </p>
         <?php endforeach; ?>
     </div>
@@ -101,7 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <canvas id="grafica" width="400" height="250"></canvas>
     </div>
 
-    <!-- Chart.js para la gráfica -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         new Chart(document.getElementById('grafica'), {
@@ -125,5 +110,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         });
     </script>
-
 <?php endif; ?>

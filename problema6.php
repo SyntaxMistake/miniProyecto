@@ -7,21 +7,17 @@ $presupuesto  = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $valorRaw    = $_POST['presupuesto'] ?? '';
-    $presupuesto = Utilidades::validarNumero($valorRaw);
+    $presupuesto = Utilidades::validarNumero($_POST['presupuesto'] ?? '');
 
     if ($presupuesto === null || $presupuesto <= 0) {
         $errores[] = "Ingresa un presupuesto válido mayor que 0.";
     } else {
-
-        // Arreglo con las áreas y sus porcentajes
         $areas = [
             ['nombre' => 'Ginecología',   'pct' => 0.40],
             ['nombre' => 'Traumatología', 'pct' => 0.35],
             ['nombre' => 'Pediatría',     'pct' => 0.25],
         ];
 
-        // Calculamos el monto de cada área con foreach
         foreach ($areas as $area) {
             $distribucion[] = [
                 'nombre' => $area['nombre'],
@@ -45,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <tr><td>Traumatología</td> <td>35%</td></tr>
         <tr><td>Pediatría</td>     <td>25%</td></tr>
     </table>
-
     <br>
 
     <form method="POST" action="index.php?problema=6">
@@ -69,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php endif; ?>
 
 <?php if (!empty($distribucion)): ?>
-
     <div class="tarjeta">
         <h3>Distribución del presupuesto: $<?= number_format($presupuesto, 2) ?></h3>
         <table>
@@ -106,11 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             },
             options: {
                 responsive: false,
-                plugins: {
-                    legend: { position: 'bottom' }
-                }
+                plugins: { legend: { position: 'bottom' } }
             }
         });
     </script>
-
 <?php endif; ?>

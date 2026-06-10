@@ -30,11 +30,11 @@ switch ($problema) {
         break;
 
     case '2':
-        require_once 'problema3.php';
+        require_once 'problema2.php';
         break;
 
     case '3':
-        require_once 'problema2.php';
+        require_once 'problema3.php';
         break;
 
     case '4':
@@ -63,7 +63,6 @@ switch ($problema) {
         echo '<div class="card shadow-sm">
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Mini Proyecto #2</h2>
-                    <p class="card-text text-center text-muted mb-4">Selecciona un problema para resolver:</p>
                     <div class="row g-3">
                         <div class="col-md-6 col-lg-4">
                             <a href="index.php?problema=1" class="btn btn-outline-primary w-100 text-start py-3">
