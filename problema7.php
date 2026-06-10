@@ -13,8 +13,8 @@ $resultados = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $x > 0 && isset($_POST['num1'])) {
     for ($i = 1; $i <= $x; $i++) {
         $nota = Utilidades::validarNumero($_POST["num{$i}"] ?? '');
-        if ($nota === null) {
-            $errores[] = "La nota #$i no es válida.";
+        if ($nota === null || $nota > 100) {
+            $errores[] = "La nota #$i debe ser un número entre 0 y 100.";
         } else {
             $notas[] = $nota;
         }
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $x > 0 && isset($_POST['num1'])) {
                     <input type="number"
                            name="num<?= $i ?>"
                            placeholder="Nota <?= $i ?>"
-                           step="any" min="0"
+                           step="any" min="0" max="100"
                            value="<?= htmlspecialchars($_POST["num{$i}"] ?? '') ?>"
                            required>
                 <?php endfor; ?>
