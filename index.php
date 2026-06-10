@@ -14,7 +14,7 @@ $problema = Utilidades::limpiar($_GET['problema'] ?? '');
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <header class="bg-primary text-white py-3 mb-4 shadow">
     <div class="container">

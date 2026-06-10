@@ -2,7 +2,7 @@
 require_once 'Utilidades.php';
 $x = isset($_POST['x']) ? (int)$_POST['x'] : 0;
 
-// Recopilar notas en un array (colección)
+// Recopilar notas en un array
 $notas = [];
 for ($i = 1; $i <= $x; $i++) {
     if (isset($_POST["num{$i}"])) {
@@ -30,7 +30,7 @@ if (count($notas) === $x && $x > 0) {
         if ($nota > $maxima) $maxima = $nota;
     }
 
-    // Desviación estándar (poblacional)
+    // Desviación estándar
     $sumaCuadrados = 0;
     foreach ($notas as $nota) {
         $sumaCuadrados += ($nota - $promedio) ** 2;

@@ -7,28 +7,15 @@ $n         = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $valorRaw = $_POST['n'] ?? '';
-
-    // Validamos que sea un número entero positivo
-    $n = filter_var($valorRaw, FILTER_VALIDATE_INT, [
+    $n = filter_var($_POST['n'] ?? '', FILTER_VALIDATE_INT, [
         'options' => ['min_range' => 1, 'max_range' => 500]
     ]);
 
     if ($n === false) {
         $errores[] = "Ingresa un número entero entre 1 y 500.";
     } else {
-
-        // Generamos los múltiplos con un bucle for
         for ($i = 1; $i <= $n; $i++) {
-            $resultado = 4 * $i;
-
-            // Detectamos desbordamiento
-            if ($resultado > PHP_INT_MAX) {
-                $errores[] = "Desbordamiento detectado en i = $i.";
-                break;
-            }
-
-            $multiplos[] = $resultado;
+            $multiplos[] = 4 * $i;
         }
     }
 }
