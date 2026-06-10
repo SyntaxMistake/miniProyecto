@@ -4,7 +4,6 @@ require_once 'Utilidades.php';
 // Calculamos la suma con un bucle for
 $suma = 0;
 
-<<<<<<< HEAD
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $n = filter_var($_POST['n'] ?? '', FILTER_VALIDATE_INT, [
@@ -18,10 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $multiplos[] = 4 * $i;
         }
     }
-=======
-for ($i = 1; $i <= 1000; $i++) {
-    $suma += $i;
->>>>>>> a6f92529a66d42f0033f91392c24dbf3addeca5a
 }
 ?>
 
