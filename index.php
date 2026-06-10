@@ -30,11 +30,11 @@ switch ($problema) {
         break;
 
     case '2':
-        require_once 'problema2.php';
+        require_once 'problema3.php';
         break;
 
     case '3':
-        require_once 'problema3.php';
+        require_once 'problema2.php';
         break;
 
     case '4':
