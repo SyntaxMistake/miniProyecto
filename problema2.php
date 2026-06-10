@@ -1,11 +1,6 @@
 <?php
 require_once 'Utilidades.php';
 
-<<<<<<< HEAD
-$suma = 0;
-for ($i = 1; $i <= 1000; $i++) {
-    $suma += $i;
-=======
 $errores   = [];
 $multiplos = [];
 $n         = null;
@@ -36,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $multiplos[] = $resultado;
         }
     }
->>>>>>> a6f92529a66d42f0033f91392c24dbf3addeca5a
 }
 ?>
 
@@ -46,13 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2>Problema #3 — N primeros múltiplos de 4</h2>
     <p>Ingresa cuántos múltiplos de 4 quieres ver (máximo 500).</p>
 
-<<<<<<< HEAD
-    <table>
-        <tr><th>Rango</th>     <td>Del 1 al 1,000</td></tr>
-        <tr><th>Resultado</th> <td><strong><?= number_format($suma) ?></strong></td></tr>
-    </table>
-</div>
-=======
     <form method="POST" action="index.php?problema=3">
         <label>Cantidad de múltiplos (N):</label>
         <input type="number" name="n"
@@ -85,4 +72,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 <?php endif; ?>
->>>>>>> a6f92529a66d42f0033f91392c24dbf3addeca5a
