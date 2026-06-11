@@ -1,18 +1,26 @@
 <?php
+// Problema #7 — Calculadora de Datos Estadísticos
+// El usuario elige cuántas notas ingresar (1-100)
+// Calcula promedio, desviación estándar, mínima y máxima
 require_once 'Utilidades.php';
 
+// Validamos la cantidad de notas (entre 1 y 100)
 $x = filter_var($_POST['x'] ?? 0, FILTER_VALIDATE_INT, [
     'options' => ['min_range' => 1, 'max_range' => 100]
 ]);
-$x = $x === false ? 0 : $x;
+$x = $x === false ? 0 : $x; // Si no es válido, x = 0
 
 $notas      = [];
 $errores    = [];
 $resultados = null;
 
+// Solo procesamos si se envió el formulario con notas
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $x > 0 && isset($_POST['num1'])) {
+
+    // Leemos y validamos cada nota
     for ($i = 1; $i <= $x; $i++) {
         $nota = Utilidades::validarNumero($_POST["num{$i}"] ?? '');
+        // Las notas deben estar entre 0 y 100
         if ($nota === null || $nota > 100) {
             $errores[] = "La nota #$i debe ser un número entre 0 y 100.";
         } else {
@@ -20,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $x > 0 && isset($_POST['num1'])) {
         }
     }
 
+    // Calculamos estadísticas solo si todas las notas son válidas
     if (empty($errores) && count($notas) === $x) {
         $resultados = [
             'promedio'   => Utilidades::calcularMedia($notas),

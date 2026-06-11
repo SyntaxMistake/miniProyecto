@@ -1,4 +1,6 @@
 <?php
+// Problema #6 — Presupuesto hospitalario
+// Distribuye el presupuesto entre 3 áreas con porcentajes fijos
 require_once 'Utilidades.php';
 
 $errores      = [];
@@ -7,22 +9,25 @@ $presupuesto  = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    // Validamos que el presupuesto sea un número positivo
     $presupuesto = Utilidades::validarNumero($_POST['presupuesto'] ?? '');
 
     if ($presupuesto === null || $presupuesto <= 0) {
         $errores[] = "Ingresa un presupuesto válido mayor que 0.";
     } else {
+        // Arreglo de áreas con sus porcentajes en decimal
         $areas = [
             ['nombre' => 'Ginecología',   'pct' => 0.40],
             ['nombre' => 'Traumatología', 'pct' => 0.35],
             ['nombre' => 'Pediatría',     'pct' => 0.25],
         ];
 
+        // Calculamos el monto de cada área con foreach
         foreach ($areas as $area) {
             $distribucion[] = [
                 'nombre' => $area['nombre'],
-                'pct'    => $area['pct'] * 100,
-                'monto'  => $presupuesto * $area['pct'],
+                'pct'    => $area['pct'] * 100,            
+                'monto'  => $presupuesto * $area['pct'], 
             ];
         }
     }
@@ -70,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <tr><th>Área</th><th>Porcentaje</th><th>Monto</th></tr>
             <?php foreach ($distribucion as $d): ?>
                 <tr>
+                    <!-- htmlspecialchars protege la salida contra XSS (OWASP) -->
                     <td><?= htmlspecialchars($d['nombre']) ?></td>
                     <td><?= $d['pct'] ?>%</td>
                     <td>$<?= number_format($d['monto'], 2) ?></td>
@@ -78,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </table>
     </div>
 
+    <!-- Gráfica de pastel con Chart.js -->
     <div class="tarjeta">
         <h3>Gráfica</h3>
         <canvas id="graficaPresupuesto" width="400" height="300"></canvas>

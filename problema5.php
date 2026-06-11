@@ -1,13 +1,17 @@
 <?php
+// Problema #5 — Clasificar edades
+// Lee 5 edades y las clasifica usando Utilidades::clasificarEdad
 require_once 'Utilidades.php';
 
 $errores    = [];
 $personas   = [];
+// Conteo de personas por categoría
 $conteo     = ['Niño' => 0, 'Adolescente' => 0, 'Adulto' => 0, 'Adulto mayor' => 0];
 $resultados = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    // Leemos y validamos las 5 edades
     for ($i = 1; $i <= 5; $i++) {
         $edad = filter_var($_POST["edad{$i}"] ?? '', FILTER_VALIDATE_INT, [
             'options' => ['min_range' => 0, 'max_range' => 120]
@@ -16,10 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($edad === false) {
             $errores[] = "La edad #$i debe ser un número entre 0 y 120.";
         } else {
+            // La clasificación está en Utilidades (separación de responsabilidades)
             $categoria = Utilidades::clasificarEdad($edad);
 
             $personas[] = ['edad' => $edad, 'categoria' => $categoria];
-            $conteo[$categoria]++;
+            $conteo[$categoria]++; // incrementamos el contador de esa categoría
         }
     }
 
@@ -70,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endforeach; ?>
     </div>
 
+    <!-- Tabla de estadísticas por categoría -->
     <div class="tarjeta">
         <h3>Estadísticas</h3>
         <table>
@@ -82,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </table>
     </div>
 
+    <!-- Gráfica de barras usando Chart.js -->
     <div class="tarjeta">
         <h3>Gráfica</h3>
         <canvas id="grafica" width="400" height="250"></canvas>

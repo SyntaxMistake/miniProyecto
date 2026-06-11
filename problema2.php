@@ -1,9 +1,13 @@
 <?php
+// Problema #2 — Suma del 1 al 1,000
+// Usa un for para acumular la suma
 require_once 'Utilidades.php';
 
 $suma = 0;
+
+// Recorremos del 1 al 1000 sumando cada número
 for ($i = 1; $i <= 1000; $i++) {
-    $suma += $i;
+    $suma += $i; // acumulador
 }
 ?>
 

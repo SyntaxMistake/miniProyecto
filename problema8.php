@@ -1,14 +1,20 @@
 <?php
+// Problema #8 — Estación del año
+// El usuario ingresa una fecha y se determina la estación
+// La lógica está en Utilidades::obtenerEstacion
 require_once 'Utilidades.php';
 
 $resultado  = null;
-$fechaInput = date('Y-m-d');
+$fechaInput = date('Y-m-d'); // Fecha de hoy como valor por defecto
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['trip-start'])) {
+    // Sanitizamos la fecha antes de procesarla
     $fechaInput = Utilidades::limpiar($_POST['trip-start']);
+    // La lógica de estaciones está en Utilidades
     $resultado  = Utilidades::obtenerEstacion($fechaInput);
 }
 
+// Arreglo asociativo: clave = nombre estación, valor = imagen y rango
 $datos = [
     'Verano'    => ['img' => 'imagenes/verano.jpg',    'rango' => 'Del 21 de diciembre al 20 de marzo'],
     'Otoño'     => ['img' => 'imagenes/otono.webp',    'rango' => 'Del 21 de marzo al 21 de junio'],
@@ -34,8 +40,10 @@ $datos = [
     </form>
 </div>
 
+<!-- Mostramos resultado solo si el formulario fue enviado -->
 <?php if ($resultado): $info = $datos[$resultado]; ?>
     <div class="tarjeta season-block">
+        <!-- htmlspecialchars en src y alt protege contra XSS -->
         <img src="<?= htmlspecialchars($info['img']) ?>"
              alt="<?= htmlspecialchars($resultado) ?>">
         <div class="season-info">

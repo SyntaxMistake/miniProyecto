@@ -1,4 +1,6 @@
 <?php
+// Problema #3 — N primeros múltiplos de 4
+// El usuario ingresa N y se generan los primeros N múltiplos de 4
 require_once 'Utilidades.php';
 
 $errores   = [];
@@ -7,6 +9,7 @@ $n         = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    // Validamos que N sea entero entre 1 y 500
     $n = filter_var($_POST['n'] ?? '', FILTER_VALIDATE_INT, [
         'options' => ['min_range' => 1, 'max_range' => 500]
     ]);
@@ -14,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($n === false) {
         $errores[] = "Ingresa un número entero entre 1 y 500.";
     } else {
+        // Generamos los múltiplos con un for: 4×1, 4×2, ... 4×N
         for ($i = 1; $i <= $n; $i++) {
             $multiplos[] = 4 * $i;
         }
@@ -42,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if (!empty($errores)): ?>
     <div class="error">
         <?php foreach ($errores as $e): ?>
-            <p>⚠ <?= htmlspecialchars($e) ?></p>
+            <p><?= htmlspecialchars($e) ?></p>
         <?php endforeach; ?>
     </div>
 <?php endif; ?>

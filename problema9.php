@@ -1,11 +1,15 @@
 <?php
+// Problema #9 — Primeras 15 potencias de un número
+// El usuario selecciona una base del 1 al 9
 require_once 'Utilidades.php';
 
+// Validamos la base (entre 1 y 9), por defecto es 4
 $base = filter_var($_POST['base'] ?? 4, FILTER_VALIDATE_INT, [
     'options' => ['min_range' => 1, 'max_range' => 9]
 ]);
 $base = $base === false ? 4 : $base;
 
+// Generamos las 15 potencias usando Utilidades::calcularPotencia
 $potencias = [];
 for ($i = 1; $i <= 15; $i++) {
     $potencias[] = [
@@ -21,6 +25,7 @@ for ($i = 1; $i <= 15; $i++) {
     <h2>Problema #9 — Primeras 15 potencias</h2>
     <p>Selecciona una base del 1 al 9.</p>
 
+    <!-- Radio buttons para seleccionar la base -->
     <div class="radio-wrap mb-3">
         <?php for ($n = 1; $n <= 9; $n++): ?>
             <input type="radio" name="base"
@@ -56,6 +61,8 @@ for ($i = 1; $i <= 15; $i++) {
 </div>
 
 <script>
+
+// Math.pow es JavaScript, no puede ir en Utilidades.php (lenguajes distintos)
 function calcularPotencias(base) {
     const tbody = document.querySelector('#tablaPotencias tbody');
     tbody.innerHTML = '';
